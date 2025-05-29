@@ -8,7 +8,7 @@ public class AnuntDTO {
     private String profesorEmail;
     private String profesorNume;
 
-    // Getteri și setteri
+
 
 
     public Long getId() {

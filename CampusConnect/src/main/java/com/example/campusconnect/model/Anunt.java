@@ -15,7 +15,7 @@ public class Anunt {
     private String profesorEmail;
     private String profesorNume;
 
-    // Getteri și setteri
+
     public Long getId() {
         return id;
     }

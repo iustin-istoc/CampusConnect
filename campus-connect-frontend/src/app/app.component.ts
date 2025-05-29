@@ -1,13 +1,24 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-   standalone: true,
-  imports: [RouterOutlet,RouterLink],
+  standalone: true,
+  imports: [RouterOutlet, RouterLink, CommonModule], 
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'campus-connect-frontend';
+
+  rol: string | null = null;
+
+  ngOnInit() {
+    this.rol = localStorage.getItem('rol');
+  }
+
+  get isAdmin(): boolean {
+    return localStorage.getItem('rol') === 'admin';
+  }
 }

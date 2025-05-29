@@ -12,14 +12,20 @@ public class Profesor {
     private String nume;
     private String email;
     private String parola;
-
+    private String rol;
     @ManyToOne
     private Specializare specializare;
 
     @ManyToOne
     private Materie materie;
 
-    // Getteri și setteri
+
+    public String getRol() {
+        return rol;
+    }
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

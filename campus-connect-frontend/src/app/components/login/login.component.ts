@@ -33,10 +33,12 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('rol', response.rol);
 
         if (response.rol === 'student') {
-          this.router.navigate(['/dashboard-student']);
+            this.router.navigate(['/dashboard-student']);
         } else if (response.rol === 'profesor') {
-          this.router.navigate(['/dashboard-profesor']);
-        }
+            this.router.navigate(['/dashboard-profesor']);
+        } else if (response.rol === 'admin') {
+            this.router.navigate(['/dashboard-profesor']);
+}
       },
       error: () => {
         alert('Autentificare eșuată.');

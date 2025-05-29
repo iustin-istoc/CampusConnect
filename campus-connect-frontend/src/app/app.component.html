@@ -1,9 +1,4 @@
-<nav>
-  <a routerLink="/">Acasă</a> |
-  <a routerLink="/add-student">Creare cont student</a> |
-  <a routerLink="/add-profesor">Creare cont profesor</a>
+<nav *ngIf="isAdmin">
+  <a routerLink="/admin">Admin Panel</a>
 </nav>
-
-<hr>
-
 <router-outlet></router-outlet>

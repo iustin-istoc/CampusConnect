@@ -48,8 +48,17 @@ public class AuthController {
             } else {
                 return ResponseEntity.status(401).body("Profesor invalid");
             }
+        } else if ("admin".equalsIgnoreCase(rol)) {
+            Optional<Profesor> admin = profesorRepo.findByEmailAndParolaAndRol(email, parola, "admin");
+            if (admin.isPresent()) {
+                String token = jwtUtil.generateToken(email);
+                return ResponseEntity.ok(Map.of("token", token, "email", email, "rol", "admin"));
+            } else {
+                return ResponseEntity.status(401).body("Admin invalid");
+            }
         }
 
         return ResponseEntity.badRequest().body("Rol necunoscut");
     }
+
 }
