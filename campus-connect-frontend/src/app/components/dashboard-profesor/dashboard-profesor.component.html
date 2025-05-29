@@ -1,0 +1,116 @@
+<div class="container mt-4 dashboard-profesor p-4 rounded shadow-sm bg-light">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Dashboard profesor</h2>
+    <button class="btn btn-primary btn-logout" (click)="logout()">Logout</button>
+  </div>
+
+  <p class="welcome-text mb-4">Bine ai venit, <strong>{{ profesorNume }}</strong>!</p>
+
+  <section class="mb-4">
+    <h3 class="section-title">Notele existente:</h3>
+    <ul class="list-group shadow-sm">
+      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let nota of note">
+        {{ nota.studentEmail }} – {{ nota.materie }}: {{ nota.valoare }}
+        <button class="btn btn-danger btn-sm" (click)="stergeNota(nota.id!)">Șterge</button>
+      </li>
+    </ul>
+  </section>
+
+  <section class="mb-5">
+    <h3 class="section-title">Adaugă o notă nouă:</h3>
+    <form (submit)="adaugaNota(); $event.preventDefault()" class="row g-3 align-items-center">
+      <input class="form-control col" type="email" [(ngModel)]="notaNoua.studentEmail" placeholder="Email student" name="studentEmail" required>
+      <input class="form-control col" type="text" [(ngModel)]="notaNoua.materie" placeholder="Materie" name="materie" required>
+      <input class="form-control col-2" type="number" [(ngModel)]="notaNoua.valoare" placeholder="Valoare" name="valoare" required>
+      <button class="btn btn-primary col-auto rounded-pill px-4" type="submit">Adaugă Notă</button>
+    </form>
+  </section>
+
+  <section class="mb-4">
+    <h3 class="section-title">Anunțuri existente:</h3>
+    <ul class="list-group shadow-sm">
+      <li class="list-group-item" *ngFor="let a of anunturi">
+        <div *ngIf="a.id !== editAnuntId">
+          <strong>{{ a.titlu }}</strong><br>
+          {{ a.data }} – {{ a.profesorNume || a.profesorEmail }}<br>
+          {{ a.continut }}
+          <div *ngIf="a.profesorEmail === email" class="mt-2">
+            <button class="btn btn-outline-primary btn-sm me-2" (click)="editeazaAnunt(a)">Editează</button>
+            <button class="btn btn-outline-danger btn-sm" (click)="stergeAnunt(a.id!)">Șterge</button>
+          </div>
+        </div>
+
+        <div *ngIf="a.id === editAnuntId" class="mt-2">
+          <input class="form-control mb-2 rounded-pill" [(ngModel)]="anuntEdit.titlu" placeholder="Titlu">
+          <input class="form-control mb-2 rounded-pill" [(ngModel)]="anuntEdit.continut" placeholder="Conținut">
+          <button class="btn btn-success btn-sm me-2 rounded-pill px-3" (click)="salveazaEditareAnunt()">Salvează</button>
+          <button class="btn btn-secondary btn-sm rounded-pill px-3" (click)="anuleazaEditareAnunt()">Anulează</button>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="mb-5">
+    <h3 class="section-title">Adaugă anunț nou:</h3>
+    <form (submit)="adaugaAnunt(); $event.preventDefault()" class="row g-3 align-items-center">
+      <input class="form-control col rounded-pill" type="text" [(ngModel)]="anuntNou.titlu" placeholder="Titlu" name="titlu" required>
+      <input class="form-control col rounded-pill" type="text" [(ngModel)]="anuntNou.continut" placeholder="Conținut" name="continut" required>
+      <button class="btn btn-primary col-auto rounded-pill px-4" type="submit">Trimite Anunț</button>
+    </form>
+  </section>
+
+  <section class="mb-4">
+    <h3 class="section-title">Adaugă oră în orar:</h3>
+    <form (submit)="adaugaOra(); $event.preventDefault()" class="row g-3 align-items-center">
+      <label class="col-auto col-form-label">Ziua:</label>
+      <select class="form-select col-auto rounded-pill" [(ngModel)]="oraNoua.zi" name="zi" required>
+        <option>Luni</option>
+        <option>Marti</option>
+        <option>Miercuri</option>
+        <option>Joi</option>
+        <option>Vineri</option>
+      </select>
+
+      <label class="col-auto col-form-label">Ora început:</label>
+      <input class="form-control col-auto rounded-pill" type="time" [(ngModel)]="oraNoua.oraInceput" name="oraInceput" required>
+
+      <label class="col-auto col-form-label">Ora sfârșit:</label>
+      <input class="form-control col-auto rounded-pill" type="time" [(ngModel)]="oraNoua.oraSfarsit" name="oraSfarsit" required>
+
+      <label class="col-auto col-form-label">An:</label>
+      <input class="form-control col-auto rounded-pill" type="number" [(ngModel)]="oraNoua.an" name="an" required>
+
+      <label class="col-auto col-form-label">Grupă:</label>
+      <input class="form-control col-auto rounded-pill" type="number" [(ngModel)]="oraNoua.grupa" name="grupa" required>
+
+      <button class="btn btn-primary col-auto rounded-pill px-4" type="submit">Adaugă ora</button>
+    </form>
+  </section>
+
+  <section>
+    <h3 class="section-title">Ore existente:</h3>
+    <ul class="list-group shadow-sm" *ngIf="ore.length > 0; else faraOre">
+      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let o of ore">
+        <div *ngIf="o.id !== editOraId">
+          {{ o.zi }}: {{ o.oraInceput }} - {{ o.oraSfarsit }}, An {{ o.an }}, Grupa {{ o.grupa }}, Materie: {{ o.materieNume }}
+          <span>
+            <button class="btn btn-outline-primary btn-sm ms-2 rounded-pill px-3" (click)="editeazaOra(o)">Editează</button>
+            <button class="btn btn-outline-danger btn-sm ms-2 rounded-pill px-3" (click)="stergeOra(o.id!)">Șterge</button>
+          </span>
+        </div>
+
+        <div *ngIf="o.id === editOraId" class="mt-2">
+          <input class="form-control mb-2 rounded-pill" [(ngModel)]="oraEdit.oraInceput" type="time">
+          <input class="form-control mb-2 rounded-pill" [(ngModel)]="oraEdit.oraSfarsit" type="time">
+          <input class="form-control mb-2 rounded-pill" [(ngModel)]="oraEdit.an" type="number">
+          <input class="form-control mb-2 rounded-pill" [(ngModel)]="oraEdit.grupa" type="number">
+          <button class="btn btn-success btn-sm me-2 rounded-pill px-3" (click)="salveazaEditareOra()">Salvează</button>
+          <button class="btn btn-secondary btn-sm rounded-pill px-3" (click)="anuleazaEditareOra()">Anulează</button>
+        </div>
+      </li>
+    </ul>
+    <ng-template #faraOre>
+      <p>Nu există ore în orar.</p>
+    </ng-template>
+  </section>
+</div>

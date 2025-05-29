@@ -1,0 +1,10 @@
+<h2>Adaugă student</h2>
+<form (ngSubmit)="onSubmit()" #studentForm="ngForm">
+  <input type="text" name="nume" [(ngModel)]="student.nume" placeholder="Nume" required />
+  <input type="text" name="email" [(ngModel)]="student.email" placeholder="Email" required />
+  <input type="number" name="an" [(ngModel)]="student.an" placeholder="An" required>
+  <input type="text" name="grupa" [(ngModel)]="student.grupa" placeholder="Grupa" required />
+  <input type="text" name="facultate" [(ngModel)]="student.facultate" placeholder="Facultate" required />
+  <input type="password" name="parola" [(ngModel)]="student.parola" placeholder="Parolă" required />
+  <button type="submit">Trimite</button>
+</form>

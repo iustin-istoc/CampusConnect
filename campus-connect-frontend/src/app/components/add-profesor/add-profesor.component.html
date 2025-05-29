@@ -1,0 +1,9 @@
+<h2>Creare cont profesor</h2>
+
+<form (submit)="adaugaProfesor(); $event.preventDefault()">
+  <input type="text" [(ngModel)]="profesor.nume" name="nume" placeholder="Nume" required><br>
+  <input type="email" [(ngModel)]="profesor.email" name="email" placeholder="Email" required><br>
+  <input type="password" [(ngModel)]="profesor.parola" name="parola" placeholder="Parolă" required><br>
+  <input type="text" [(ngModel)]="profesor.specializare" name="specializare" placeholder="Specializare" required><br>
+  <button type="submit">Creează cont</button>
+</form>
