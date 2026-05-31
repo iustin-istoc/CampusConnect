@@ -14,11 +14,11 @@ export interface StudentInfo {
 })
 export class StudentService {
 
-  private baseUrl = 'http://localhost:8080/api/student'; 
+  private baseUrl = 'https://localhost:8443/api/student'; 
 
   constructor(private http: HttpClient) { }
 
   getStudentInfo(email: string): Observable<Student> {
-  return this.http.get<Student>(`http://localhost:8080/api/students/${email}`);
+  return this.http.get<Student>(`https://localhost:8443/api/students/${email}`);
 }
 }

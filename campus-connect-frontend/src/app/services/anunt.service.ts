@@ -7,7 +7,7 @@ import { Anunt } from '../models/anunt.model';
   providedIn: 'root'
 })
 export class AnuntService {
-  private apiUrl = 'http://localhost:8080/api/anunturi';
+  private apiUrl = 'https://localhost:8443/api/anunturi';
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +30,7 @@ export class AnuntService {
   }
 
   deleteAnunt(id: number): Observable<void> {
-    return this.http.delete<void>(`http://localhost:8080/api/anunturi/${id}`);
+    return this.http.delete<void>(`https://localhost:8443/api/anunturi/${id}`);
   }
   
   actualizeazaAnunt(anunt: Anunt): Observable<Anunt> {

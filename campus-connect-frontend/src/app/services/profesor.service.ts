@@ -12,7 +12,7 @@ export interface Profesor {
 })
 export class ProfesorService {
 
-  private apiUrl = 'http://localhost:8080/api/profesori';
+  private apiUrl = 'https://localhost:8443/api/profesori';
 
   constructor(private http: HttpClient) {}
 

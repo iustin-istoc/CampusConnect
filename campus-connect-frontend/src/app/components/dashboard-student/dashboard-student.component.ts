@@ -8,18 +8,19 @@ import { CommonModule } from '@angular/common';
 import { Anunt } from '../../models/anunt.model';
 import { AnuntService } from '../../services/anunt.service';
 import { StudentService } from '../../services/student.service';
-
+import { ChatbotComponent } from '../chatbot/chatbot.component';
+import { SecurityService } from '../../services/security.service';
 
 
 @Component({
   selector: 'app-dashboard-student',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,ChatbotComponent],
   templateUrl: './dashboard-student.component.html',
   styleUrls: ['./dashboard-student.component.css']
 })
 export class DashboardStudentComponent implements OnInit {
-  studentEmail: string = 'iustinistoc1@gmail.com'; 
+  studentEmail: string = ''; 
   note: Nota[] = [];
   orar: Orar[] = [];
   anunturi: Anunt[] = [];
@@ -32,21 +33,23 @@ export class DashboardStudentComponent implements OnInit {
     private orarService: OrarService,
     private studentService: StudentService,
     private router: Router,
-    private anuntService: AnuntService 
+    private anuntService: AnuntService,
+    private sec: SecurityService 
   ) {}
 
   ngOnInit(): void {
+  this.studentEmail = localStorage.getItem('email') || '';
   this.loading = true;
   let completedCalls = 0;
   const totalCalls = 3;
-
+  
   const checkLoadingComplete = () => {
     completedCalls++;
     if (completedCalls === totalCalls) {
       this.loading = false;
     }
   };
-
+  
   this.studentService.getStudentInfo(this.studentEmail).subscribe({
     next: (data) => {
       this.studentNume = data.nume;  // sau cum se numește câmpul
@@ -94,5 +97,23 @@ export class DashboardStudentComponent implements OnInit {
 logout(): void {
     localStorage.clear(); 
     this.router.navigate(['/']); 
+  }
+ async adaugaDispozitiv() {
+    try {
+      await this.sec.inregistreazaDispozitiv();
+      alert('Dispozitiv înregistrat cu succes! Acum poți folosi FIDO2 la login.');
+    } catch (e) {
+      alert('Înregistrare anulată sau eșuată.');
+      console.error(e);
+    }
+  }
+   async genereazaCoduri() {
+    try {
+      const coduri = await this.sec.genereazaBackupCodes();
+      alert('Coduri de rezervă (notează-le, fiecare se folosește o singură dată):\n\n' + coduri.join('\n'));
+    } catch (e) {
+      alert('Nu s-au putut genera codurile.');
+      console.error(e);
+    }
   }
 }

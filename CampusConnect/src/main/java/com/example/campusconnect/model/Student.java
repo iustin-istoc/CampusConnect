@@ -19,4 +19,8 @@ public class Student {
     private String facultate;
     private Integer an;
     private Integer grupa;
+
+    // ── MFA (TOTP) ──────────────────────────────────────────────
+    private String mfaSecret;          // cheia secreta Base32
+    private boolean mfaEnabled = false; // true dupa prima verificare reusita
 }

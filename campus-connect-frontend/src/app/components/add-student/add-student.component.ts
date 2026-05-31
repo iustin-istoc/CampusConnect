@@ -22,7 +22,7 @@ export class AddStudentComponent {
   constructor(private http: HttpClient) {}
 
   onSubmit() {
-    this.http.post('http://localhost:8080/api/students', this.student).subscribe({
+    this.http.post('https://localhost:8443/api/students', this.student).subscribe({
       next: () => alert('Student adăugat cu succes!'),
       error: () => alert('Eroare la adăugare.')
     });

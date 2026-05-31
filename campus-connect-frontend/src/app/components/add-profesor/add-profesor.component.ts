@@ -21,7 +21,7 @@ export class AddProfesorComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   adaugaProfesor(): void {
-    this.http.post('http://localhost:8080/api/profesori', this.profesor).subscribe({
+    this.http.post('https://localhost:8443/api/profesori', this.profesor).subscribe({
       next: () => {
         alert('Contul a fost creat cu succes!');
         this.router.navigate(['/']); // redirect spre login

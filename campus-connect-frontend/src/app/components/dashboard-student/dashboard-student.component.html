@@ -1,12 +1,11 @@
 <div class="container mt-5 dashboard-wrapper p-4 shadow-sm rounded">
   <div class="header">
-  <div class="title-logout">
-    <h2>Dashboard student</h2>
-    <button (click)="logout()" class="btn-logout">Logout</button>
+    <div class="title-logout">
+      <h2>Dashboard student</h2>
+      <button (click)="logout()" class="btn-logout">Logout</button>
+    </div>
+    <p class="welcome-text">Bine ai venit, {{ studentNume }}!</p>
   </div>
-  <p class="welcome-text">Bine ai venit, {{ studentNume }}!</p>
-</div>
-
 
   <!-- Note -->
   <h3 class="section-title">Notele tale:</h3>
@@ -17,40 +16,61 @@
   </ul>
 
   <!-- Orar -->
- <h3 class="section-title">Orar:</h3>
-<div class="table-responsive mb-4 schedule-table">
-  <table class="table table-bordered table-striped rounded">
-    <thead class="table-light rounded-top">
-      <tr>
-        <th>Zi</th>
-        <th>Ora</th>
-        <th>Materie</th>
-        <th>Profesor</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ora of orar">
-        <td>{{ ora.zi }}</td>
-        <td>{{ ora.oraInceput }} - {{ ora.oraSfarsit }}</td>
-        <td>{{ ora.materieNume }}</td>
-        <td>{{ ora.profesorNume }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
+  <h3 class="section-title">Orar:</h3>
+  <div class="table-responsive mb-4 schedule-table">
+    <table class="table table-bordered table-striped rounded">
+      <thead class="table-light rounded-top">
+        <tr>
+          <th>Zi</th>
+          <th>Ora</th>
+          <th>Materie</th>
+          <th>Profesor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ora of orar">
+          <td>{{ ora.zi }}</td>
+          <td>{{ ora.oraInceput }} - {{ ora.oraSfarsit }}</td>
+          <td>{{ ora.materieNume }}</td>
+          <td>{{ ora.profesorNume }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <!-- Anunțuri -->
   <h3 class="section-title">Anunțuri primite:</h3>
-  <ul class="list-group announcement-list">
+  <ul class="list-group announcement-list mb-4">
     <li class="list-group-item" *ngFor="let a of anunturi">
-      <strong>{{ a.titlu }}</strong><br>
-      <small class="text-muted">{{ a.data }} – {{ a.profesorNume }}</small><br>
+      <strong>{{ a.titlu }}</strong><br />
+      <small class="text-muted">{{ a.data }} – {{ a.profesorNume }}</small><br />
       <p class="announcement-content">{{ a.continut }}</p>
     </li>
   </ul>
+  <!-- Securitate (MFA) -->
+  <h3 class="section-title">Securitate cont:</h3>
+  <div class="mb-4 d-flex gap-2 flex-wrap">
+    <button (click)="adaugaDispozitiv()" class="btn btn-primary">
+      Înregistrează dispozitiv FIDO2
+    </button>
+    <button (click)="genereazaCoduri()" class="btn btn-success">
+      Generează coduri de rezervă
+    </button>
+  </div>
+  <!-- AI Chat (integrat ca un card) -->
+  <div class="chat-section mt-4">
+    <div class="chat-card">
+      <div class="chat-card-header">
+        <h3 class="section-title m-0">AI Chat</h3>
+        <span class="chat-hint">Întreabă orice legat de cursuri, note, orar.</span>
+      </div>
+      <div class="chat-card-body">
+        <app-chatbot></app-chatbot>
+      </div>
+    </div>
+  </div>
 
-  <!-- Spinner pentru încărcare -->
+  <!-- Spinner pentru încărcare (o singură dată) -->
   <div *ngIf="loading" class="d-flex justify-content-center my-3">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Loading...</span>

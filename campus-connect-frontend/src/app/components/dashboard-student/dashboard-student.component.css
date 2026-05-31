@@ -139,3 +139,30 @@ h2 {
   line-height: 1.5;
   margin-top: 8px;
 }
+
+.chat-card {
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  overflow: hidden;
+}
+
+.chat-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(13,110,253,.04); /* un albastru foarte discret */
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.chat-hint {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.chat-card-body {
+  padding: 12px 12px 14px 12px;
+}

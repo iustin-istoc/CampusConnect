@@ -1,9 +1,42 @@
-
 <h1>Panoul de administrare</h1>
 <p>Bine ai venit în zona de administrare!</p>
+
 <nav>
   <a routerLink="/dashboard-profesor">Acasă</a> |
   <a routerLink="/add-student">Creare cont student</a> |
   <a routerLink="/add-profesor">Creare cont profesor</a>
 </nav>
 
+<section class="alerte" *ngIf="isAdmin">
+  <div class="alerte-header">
+    <h2>Alerte de securitate</h2>
+    <button class="refresh" (click)="incarcaAlerte()">↻ Reîmprospătează</button>
+  </div>
+  <p class="subtitlu">Tentative de acces neautorizat (parolă greșită sau cod MFA invalid)</p>
+
+  <p *ngIf="loading" class="info">Se încarcă...</p>
+  <p *ngIf="!loading && alerte.length === 0" class="info ok">
+    Nicio tentativă de acces neautorizat înregistrată.
+  </p>
+
+  <table *ngIf="!loading && alerte.length > 0">
+    <thead>
+      <tr>
+        <th>Moment</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Motiv</th>
+        <th>IP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of alerte" [class.critica]="esteCritica(a)">
+        <td>{{ a.moment | date:'dd.MM.yyyy HH:mm:ss' }}</td>
+        <td>{{ a.email }}</td>
+        <td>{{ a.rol }}</td>
+        <td>{{ a.motiv }}</td>
+        <td>{{ a.ip }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

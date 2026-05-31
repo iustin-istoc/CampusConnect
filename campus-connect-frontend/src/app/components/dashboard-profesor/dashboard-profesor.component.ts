@@ -215,7 +215,7 @@ ngOnInit(): void {
   }
 
   adaugaOra(): void {
-    fetch('http://localhost:8080/api/profesori/user-info', {
+    fetch('https://localhost:8443/api/profesori/user-info', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -229,7 +229,7 @@ ngOnInit(): void {
         this.oraNoua.materieId = prof.materie.id;
         this.oraNoua.specializareId = prof.specializare.id;
 
-        return fetch('http://localhost:8080/api/orar', {
+        return fetch('https://localhost:8443/api/orar', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

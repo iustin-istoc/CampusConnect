@@ -5,7 +5,7 @@ import { Orar } from '../models/orar.model';
 
 @Injectable({ providedIn: 'root' })
 export class OrarService {
-  private apiUrl = 'http://localhost:8080/api/orar';
+  private apiUrl = 'https://localhost:8443/api/orar';
 
   constructor(private http: HttpClient) {}
 
@@ -15,7 +15,7 @@ export class OrarService {
   }
 
   getOrarStudent(): Observable<Orar[]> {
-  return this.http.get<Orar[]>('http://localhost:8080/api/orar/student', {
+  return this.http.get<Orar[]>('https://localhost:8443/api/orar/student', {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     }

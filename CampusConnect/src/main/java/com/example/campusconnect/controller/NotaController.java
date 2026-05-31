@@ -40,7 +40,6 @@ public class NotaController {
         if (!studentRepo.existsByEmail(nota.getStudentEmail())) {
             return ResponseEntity.badRequest().body("Studentul nu există");
         }
-
         Nota saved = repo.save(nota);
         return ResponseEntity.ok(saved);
     }
@@ -55,5 +54,10 @@ public class NotaController {
     public ResponseEntity<Void> stergeNota(@PathVariable Long id) {
         notaService.stergeNota(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Nota>> getAllNote() {
+        return ResponseEntity.ok(repo.findAll());
     }
 }

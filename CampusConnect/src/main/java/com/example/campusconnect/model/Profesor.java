@@ -13,19 +13,19 @@ public class Profesor {
     private String email;
     private String parola;
     private String rol;
+
     @ManyToOne
     private Specializare specializare;
 
     @ManyToOne
     private Materie materie;
 
+    // ── MFA (TOTP) ──────────────────────────────────────────────
+    private String mfaSecret;
+    private boolean mfaEnabled = false;
 
-    public String getRol() {
-        return rol;
-    }
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
+    public String getRol() { return rol; }
+    public void setRol(String rol) { this.rol = rol; }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -44,4 +44,10 @@ public class Profesor {
 
     public Materie getMaterie() { return materie; }
     public void setMaterie(Materie materie) { this.materie = materie; }
+
+    public String getMfaSecret() { return mfaSecret; }
+    public void setMfaSecret(String mfaSecret) { this.mfaSecret = mfaSecret; }
+
+    public boolean isMfaEnabled() { return mfaEnabled; }
+    public void setMfaEnabled(boolean mfaEnabled) { this.mfaEnabled = mfaEnabled; }
 }
